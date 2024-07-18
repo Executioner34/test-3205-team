@@ -9,7 +9,7 @@ const getContacts = (email: string, number?: number) => {
                 return item.email === email;
             });
             contact ? resolve(contact) : reject(contact);
-        }, 500)
+        }, 5000)
     })
 }
 

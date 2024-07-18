@@ -6,11 +6,17 @@ const router = Router();
 router
     .get('/contacts/',  async (req: Request, res: Response) => {
         const email = req.query.email as string;
-        const number = req.query.number as number | undefined;
+        const number = Number(req.query.number) as number | undefined;
 
         if (!email) {
             return res.status(400).send({
                 message: 'Email address is required',
+            })
+        }
+
+        if (!number) {
+            return res.status(400).send({
+                message: 'Invalid number',
             })
         }
 
