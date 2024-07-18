@@ -1,16 +1,16 @@
 import { IContact } from "./contacts.model";
 import contacts from '../../mock/contacts.json';
 
-const getContact = (email: string, number?: number) => {
+const getContacts = (email: string, number?: number) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const contact: IContact | undefined = contacts.find((item: IContact) => {
+            const contact: IContact[] = contacts.filter((item: IContact) => {
                 if (number) return item.number === number && item.email === email;
                 return item.email === email;
             });
             contact ? resolve(contact) : reject(contact);
-        }, 5000)
+        }, 500)
     })
 }
 
-export { getContact };
+export { getContacts };

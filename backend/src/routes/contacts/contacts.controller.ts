@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
-import { getContact } from "./contacts.service";
-import { IContact } from "./contacts.model";
+import { getContacts } from "./contacts.service";
 
 const router = Router();
 
 router
-    .get('/contacts',  async (req: Request, res: Response) => {
-        const { email, number }: IContact = req.body;
+    .get('/contacts/',  async (req: Request, res: Response) => {
+        const email = req.query.email as string;
+        const number = req.query.number as number | undefined;
 
         if (!email) {
             return res.status(400).send({
@@ -15,11 +15,12 @@ router
         }
 
         try {
-            const contact = await getContact(email, number);
-            res.json(contact);
+            const contacts = await getContacts(email, number);
+            return res.status(200).json({
+                data: contacts
+            })
         } catch (e) {
-            console.error(e);
-            res.status(404).send('Not Found');
+            res.status(404).send('Error');
         }
     })
 
