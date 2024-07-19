@@ -14,7 +14,7 @@ router
             })
         }
 
-        if (!number) {
+        if (number !== undefined && isNaN(number)) {
             return res.status(400).send({
                 message: 'Invalid number',
             })
